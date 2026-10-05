@@ -16,8 +16,8 @@ Deck HTML statique (slides plein écran) pour mémoriser le projet d’**assuran
 ## Cloner
 
 ```bash
-git clone https://github.com/igiroux/assurance-chomage-tns-deck.git
-cd assurance-chomage-tns-deck
+git clone https://github.com/igiroux/assurance-chomage-tns-deck-fb898df2bc.git
+cd assurance-chomage-tns-deck-fb898df2bc
 ```
 
 Ouvrir `index.html` dans un navigateur, ou servir en local :
@@ -31,6 +31,6 @@ Navigation : ← →, Espace, clic (droite = suivant), swipe.
 
 ## GitHub Pages
 
-Site : **https://igiroux.github.io/assurance-chomage-tns-deck/**
+Site : **https://igiroux.github.io/assurance-chomage-tns-deck-fb898df2bc/**
 
 Source : branche `main`, racine `/`.
