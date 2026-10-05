@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assurance chômage TNS — Deck mémorisation</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --text: #e8eef5;
+      --muted: #8b9bb4;
+      --accent: #3d9cf0;
+      --accent2: #5eead4;
+      --warn: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+    }
+    #deck {
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+    .slide {
+      display: none;
+      height: 100%;
+      width: 100%;
+      padding: clamp(2rem, 6vw, 4.5rem);
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .slide.active { display: flex; }
+    .slide.title-slide {
+      align-items: center;
+      text-align: center;
+      max-width: 100%;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .subtitle {
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: var(--muted);
+      margin-top: 1rem;
+      font-weight: 400;
+    }
+    ul {
+      list-style: none;
+      font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+      line-height: 1.55;
+    }
+    ul li {
+      padding: 0.45rem 0 0.45rem 1.4rem;
+      position: relative;
+    }
+    ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+      font-weight: 700;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent2);
+      border: 1px solid var(--accent2);
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 1.2rem;
+    }
+    .one-liner {
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 600;
+      line-height: 1.4;
+      text-align: center;
+      max-width: 40rem;
+    }
+    .ref {
+      margin-top: 1.25rem;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      color: var(--muted);
+      font-family: ui-monospace, "Cascadia Code", monospace;
+    }
+    .nav {
+      position: fixed;
+      bottom: 1.25rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .nav button {
+      pointer-events: auto;
+      background: var(--surface);
+      border: 1px solid #2a3a50;
+      color: var(--text);
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.15s;
+    }
+    .nav button:hover { background: #243447; }
+    .nav button:disabled { opacity: 0.35; cursor: default; }
+    #counter {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      min-width: 3.5rem;
+      text-align: center;
+    }
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.2s ease;
+      z-index: 20;
+    }
+    .hint {
+      position: fixed;
+      bottom: 1.4rem;
+      right: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+    @media (max-width: 600px) {
+      .hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div id="deck">
+
+    <!-- 1. Titre -->
+    <section class="slide title-slide active" data-i="0">
+      <span class="tag">Projet · TNS</span>
+      <h1>Assurance chômage privée<br>pour les TNS</h1>
+      <p class="subtitle">Filet digne · Accompagnement · Faits</p>
+    </section>
+
+    <!-- 2. Vision -->
+    <section class="slide" data-i="1">
+      <h2>Vision</h2>
+      <ul>
+        <li>Filet digne + accompagnement TNS</li>
+        <li>Client, pas fraudeur</li>
+        <li>Faits, pas com’</li>
+      </ul>
+    </section>
+
+    <!-- 3. Hors UNEDIC -->
+    <section class="slide" data-i="2">
+      <h2>Hors UNEDIC salariés</h2>
+      <ul>
+        <li>Régime salariés ≠ TNS</li>
+        <li>Périmètre distinct</li>
+      </ul>
+      <p class="ref">L.5422-13 Code du travail</p>
+    </section>
+
+    <!-- 4. Cible -->
+    <section class="slide" data-i="3">
+      <h2>Cible</h2>
+      <ul>
+        <li>TNS France — aujourd’hui</li>
+        <li>Europe — plus tard</li>
+      </ul>
+    </section>
+
+    <!-- 5. Valeur vs ATI / GSC -->
+    <section class="slide" data-i="4">
+      <h2>Valeur relative</h2>
+      <ul>
+        <li>vs ATI ≈ 600–800 € × 182 j</li>
+        <li>vs GSC — offre privée existante</li>
+        <li>Objectif : digne, lisible, accompagné</li>
+      </ul>
+    </section>
+
+    <!-- 6. Modèle branche 16 -->
+    <section class="slide" data-i="5">
+      <h2>Modèle : branche 16</h2>
+      <ul>
+        <li>Pertes pécuniaires diverses</li>
+        <li>Cadre assurance privée</li>
+      </ul>
+      <p class="ref">Code des assurances R.321-1</p>
+    </section>
+
+    <!-- 7. Parcours ACPR -->
+    <section class="slide" data-i="6">
+      <h2>Parcours ACPR</h2>
+      <ul>
+        <li>Agrément</li>
+        <li>MCR 2,7 M€ (non-vie)</li>
+        <li>SCR</li>
+        <li>4 fonctions clés</li>
+        <li>Programme 3 ans</li>
+      </ul>
+    </section>
+
+    <!-- 8. Risques -->
+    <section class="slide" data-i="7">
+      <h2>Risques</h2>
+      <ul>
+        <li>Anti-sélection</li>
+        <li>Fraude / moral hazard</li>
+        <li>Capital réglementaire</li>
+        <li>Agrément ACPR</li>
+        <li>Distribution &amp; coût d’acquisition</li>
+        <li>Cycle économique</li>
+      </ul>
+    </section>
+
+    <!-- 9. Prochaines étapes -->
+    <section class="slide" data-i="8">
+      <h2>6 prochaines étapes</h2>
+      <ul>
+        <li>Cadrage produit &amp; périmètre</li>
+        <li>Business case &amp; tarification</li>
+        <li>Dossier ACPR (agrément)</li>
+        <li>Capital MCR / SCR</li>
+        <li>Gouvernance (4 fonctions)</li>
+        <li>Go-to-market pilote France</li>
+      </ul>
+    </section>
+
+    <!-- 10. Closing -->
+    <section class="slide title-slide" data-i="9">
+      <span class="tag">À retenir</span>
+      <p class="one-liner">Filet digne pour TNS — hors UNEDIC, branche 16, ACPR.</p>
+    </section>
+
+  </div>
+
+  <div class="nav">
+    <button id="prev" aria-label="Précédent">‹</button>
+    <span id="counter">1 / 10</span>
+    <button id="next" aria-label="Suivant">›</button>
+  </div>
+  <div class="hint">← → · Espace · Clic</div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const n = slides.length;
+      let i = 0;
+      const counter = document.getElementById("counter");
+      const progress = document.getElementById("progress");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+
+      function show(k) {
+        i = Math.max(0, Math.min(n - 1, k));
+        slides.forEach((s, j) => s.classList.toggle("active", j === i));
+        counter.textContent = (i + 1) + " / " + n;
+        progress.style.width = ((i + 1) / n * 100) + "%";
+        prevBtn.disabled = i === 0;
+        nextBtn.disabled = i === n - 1;
+        history.replaceState(null, "", "#" + (i + 1));
+      }
+
+      function next() { show(i + 1); }
+      function prev() { show(i - 1); }
+
+      prevBtn.addEventListener("click", (e) => { e.stopPropagation(); prev(); });
+      nextBtn.addEventListener("click", (e) => { e.stopPropagation(); next(); });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+          e.preventDefault(); next();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          e.preventDefault(); prev();
+        } else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(n - 1); }
+      });
+
+      document.getElementById("deck").addEventListener("click", (e) => {
+        if (e.target.closest("button")) return;
+        const x = e.clientX / window.innerWidth;
+        if (x > 0.35) next(); else prev();
+      });
+
+      let touchX = null;
+      document.addEventListener("touchstart", (e) => {
+        touchX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      document.addEventListener("touchend", (e) => {
+        if (touchX == null) return;
+        const dx = e.changedTouches[0].screenX - touchX;
+        if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+        touchX = null;
+      }, { passive: true });
+
+      const hash = parseInt(location.hash.slice(1), 10);
+      show(hash >= 1 && hash <= n ? hash - 1 : 0);
+    })();
+  </script>
+</body>
+</html>
